@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.care.mapper.KeywordMapper">
+
+	<insert id="insertKeyword" parameterType="keywordDTO">
+		INSERT INTO
+		KEYWORD(KEYWORD, DIARY_NUM) VALUES(#{keyword}, #{diaryNum})
+
+	</insert>
+
+	<update id="updateKeyword" parameterType="keywordDTO">
+		UPDATE KEYWORD SET
+		KEYWORD=#{keyword} 
+		WHERE KEYWORD_NUM = #{keywordNum}
+	</update>
+
+	<delete id="deleteKeyword" parameterType="int">
+		DELETE FROM KEYWORD
+		WHERE KEYWORD_NUM = #{keywordNum}
+
+	</delete>
+
+	<select id="selectKeyword" parameterType="int" resultType="keywordDTO">
+		SELECT KEYWORD_NUM, KEYWORD, DIARY_NUM FROM KEYWORD WHERE
+		KEYWORD_NUM = #{keywordNum}
+	</select>
+	
+	<select id="selectKeywordWithDiary" parameterType="int" resultType="keywordDTO">
+		SELECT KEYWORD_NUM, KEYWORD, DIARY_NUM
+		FROM KEYWORD 
+		WHERE
+		DIARY_NUM = #{diaryNum}
+	</select>
+
+	<select id="selectKeywordList" resultType="keywordDTO">
+		SELECT KEYWORD_NUM,
+		KEYWORD, DIARY_NUM FROM KEYWORD
+		ORDER BY KEYWORD_NUM DESC
+	</select>
+
+
+
+
+</mapper>

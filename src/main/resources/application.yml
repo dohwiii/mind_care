@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+#mybaits
+mybatis:
+  type-aliases-package: com.care.dto
+  mapper-locations: mapper/**/*.xml
+  configuration.map-underscore-to-camel-case: true
+
+
+spring:
+  datasource:
+    hikari:
+      minimumIdle: 5
+      maximumPoolSize: 20
+      idleTimeout: 30000
+      poolName: SpringBootJPAHikariCP
+      maxLifetime: 2000000
+      connectionTimeout: 30000
+      jdbcUrl: jdbc:mariadb://dohwi.ctdjafcfvqsh.ap-northeast-2.rds.amazonaws.com:3306/MIND_CARE
+      username: admin
+      password: 
+      driverClassName: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://dohwi.ctdjafcfvqsh.ap-northeast-2.rds.amazonaws.com:3306/MIND_CARE
+    driver-class-name: org.mariadb.jdbc.Driver

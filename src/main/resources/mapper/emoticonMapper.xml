@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.care.mapper.EmoticonMapper">
+
+	<insert id="insertEmoticon" parameterType="emoticonDTO">
+		INSERT INTO EMOTICON(content, DIARY_NUM) VALUES(#{content}, #{diaryNum})
+	</insert>
+
+	<update id="updateEmoticon" parameterType="emoticonDTO">
+		UPDATE EMOTICON SET content=#{content}
+		WHERE EMOTICON_NUM = #{emoticonNum}
+	</update>
+
+	<delete id="deleteEmoticon" parameterType="int">
+		DELETE FROM EMOTICON WHERE EMOTICON_NUM = #{emoticonNum}
+	</delete>
+
+	<select id="selectEmoticon" parameterType="int"
+		resultType="emoticonDTO">
+		SELECT EMOTICON_NUM, content, DIARY_NUM FROM EMOTICON
+		WHERE EMOTICON_NUM = #{emoticonNum}
+	</select>
+
+	<select id="selectEmoticonList" resultType="emoticonDTO">
+		SELECT EMOTICON_NUM, content, DIARY_NUM FROM EMOTICON
+		ORDER BY EMOTICON_NUM DESC
+	</select>
+	
+	<select id="selectEmoticonWithDiary" parameterType="int" resultType="emoticonDTO">
+		SELECT EMOTICON_NUM, content, DIARY_NUM
+		FROM EMOTICON
+		WHERE
+		DIARY_NUM = #{diaryNum}
+	</select>
+
+</mapper>

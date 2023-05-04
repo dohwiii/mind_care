@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.care.mapper.FoodMapper">
+
+	<insert id="insertFood" parameterType="foodDTO">
+	INSERT INTO FOOD(NAME, DIARY_NUM) VALUES(#{name}, #{diaryNum})
+	</insert>
+
+	<delete id="deleteFood" parameterType="int">
+		DELETE FROM FOOD WHERE FOOD_NUM=#{foodNum}
+
+	</delete>
+
+	<update id="updateFood" parameterType="foodDTO">
+		UPDATE FOOD SET NAME=#{name}
+		WHERE FOOD_NUM = #{foodNum}
+	</update>
+
+	<select id="selectFood" parameterType="int" resultType="foodDTO">
+		SELECT FOOD_NUM, NAME, DIARY_NUM FROM FOOD WHERE FOOD_NUM = #{foodNum}
+	</select>
+
+	<select id="selectFoodList" resultType="foodDTO">
+		SELECT FOOD_NUM, NAME, DIARY_NUM
+		FROM FOOD
+		ORDER BY FOOD_NUM DESC
+	</select>
+	
+	
+	<select id="selectFoodWithDiary" parameterType="int" resultType="foodDTO">
+		SELECT FOOD_NUM, NAME, DIARY_NUM
+		FROM FOOD 
+		WHERE
+		DIARY_NUM = #{diaryNum}
+	</select>
+</mapper>

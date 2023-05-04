@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.care.mapper.CommunityMapper">
+
+	<insert id="insert" parameterType="communityDTO"
+		useGeneratedKeys="true" keyProperty="communityNum">
+		INSERT INTO COMMUNITY(title,
+		content, USER_NUM, name)
+		VALUES(#{title}, #{content}, #{userNum}, #{name})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM COMMUNITY
+		WHERE
+		COMMUNITY_NUM=#{communityNum} 
+	</delete>
+
+	<select id="selectDetail" parameterType="int" resultType="communityDTO">
+		SELECT COMMUNITY_NUM, title, content, name, USER_NUM,
+		(select count(*) from COMMENT CM WHERE CM.COMMUNITY_NUM = CT.COMMUNITY_NUM)
+		commentCnt, cretim
+		FROM COMMUNITY CT
+		WHERE COMMUNITY_NUM=#{communityNum}
+
+	</select>
+
+	<select id="selectCommunityList" resultType="communityDTO">
+		SELECT
+		COMMUNITY_NUM, title, content, name, USER_NUM, viewCnt, 
+		(select count(*) from COMMENT CM WHERE CM.COMMUNITY_NUM=CT.COMMUNITY_NUM) 
+		commentCnt, credat, cretim, moddat, modtim
+		FROM COMMUNITY CT
+		ORDER BY COMMUNITY_NUM DESC
+	</select>
+
+	<update id="increaseCommunityViewCnt">
+		UPDATE COMMUNITY
+		SET viewCnt = viewCnt +1
+		WHERE
+		COMMUNITY_NUM=#{communityNum}
+
+	</update>
+
+	<update id="updateCommunity" parameterType="communityDTO">
+		UPDATE COMMUNITY SET
+		title=#{title}, content=#{content}
+		WHERE COMMUNITY_NUM=#{communityNum}
+	</update>
+
+</mapper>
+

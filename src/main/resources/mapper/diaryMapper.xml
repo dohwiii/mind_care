@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.care.mapper.DiaryMapper">
+
+	<insert id="insertDiary" parameterType="diaryDTO"
+		keyColumn="diary_num" keyProperty="diaryNum" useGeneratedKeys="true">
+		INSERT
+		INTO
+		DIARY(USER_NUM, content, emotion, weather, musicId)
+		VALUES(#{userNum}, #{content}, #{emotion}, #{weather}, #{musicId})
+	</insert>
+
+	<select id="selectDiary" resultType="diaryDTO">
+		SELECT DIARY_NUM, USER_NUM, content, credat, cretim, emotion, weather, musicId
+		FROM DIARY
+		WHERE DIARY_NUM = #{diaryNum}
+	</select>
+	
+	<select id="selectDiaryWithUser" resultType="diaryDTO">
+		SELECT DIARY_NUM, d.USER_NUM, content, credat, cretim, emotion, weather, musicId,
+		m.id 'user.id', m.name 'user.name'
+		FROM DIARY d, USER m
+		WHERE d.USER_NUM = m.USER_NUM
+		and d.USER_NUM = #{userNum}
+	</select>
+
+	<select id="selectDiaryWithUserAndDate" resultType="diaryDTO">
+		SELECT
+		DIARY_NUM, d.USER_NUM, content, credat, cretim, emotion, weather, musicId,
+		m.id 'user.id', m.name 'user.name'
+		FROM DIARY d, USER m
+		WHERE
+		d.USER_NUM = m.USER_NUM
+		and d.USER_NUM = #{userNum}
+		and credat = #{credat}
+	</select>
+
+	<select id="selectDiaryList" resultType="diaryDTO">
+		SELECT DIARY_NUM,
+		user_num, content, credat, cretim, emotion, weather, musicId
+		FROM DIARY
+		ORDER BY
+		DIARY_NUM DESC
+	</select>
+
+	<update id="updateDiary" parameterType="diaryDTO">
+		UPDATE DIARY SET
+		content=#{content}, emotion=#{emotion}, weather=#{weather}, musicId=#{musicId}
+		WHERE DIARY_NUM=#{diaryNum}
+	</update>
+
+	<delete id="deleteDiary" parameterType="int">
+		DELETE FROM DIARY WHERE
+		DIARY_NUM = #{diaryNum} and USER_NUM = #{userNum}
+	</delete>
+
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.care.mapper.BehaviorMapper">
+
+	<insert id="insertBehavior" parameterType="behaviorDTO">
+		INSERT INTO
+		BEHAVIOR(CONTENTS, DIARY_NUM) VALUES(#{contents}, #{diaryNum})
+	</insert>
+
+	<select id="selectBehavior" resultType="behaviorDTO">
+		SELECT
+		BEHAVIOR_NUM,CONTENTS, DIARY_NUM FROM BEHAVIOR
+		WHERE
+		BEHAVIOR_NUM=#{behaviorNum}
+	</select>
+
+	<select id="selectBehaviorList" resultType="behaviorDTO">
+		SELECT BEHAVIOR_NUM,
+		CONTENTS, DIARY_NUM
+		FROM BEHAVIOR
+		ORDER BY BEHAVIOR_NUM DESC
+	</select>
+
+	<update id="updateBehavior" parameterType="behaviorDTO">
+		UPDATE BEHAVIOR
+		SET
+		contents = #{contents}
+		WHERE BEHAVIOR_NUM = #{behaviorNum}
+	</update>
+
+	<delete id="deleteBehavior" parameterType="int">
+		DELETE FROM BEHAVIOR
+		WHERE BEHAVIOR_NUM = #{behaviorNum}
+	</delete>
+
+	<select id="selectBehaviorWithDiary" parameterType="int" resultType="behaviorDTO">
+		SELECT BEHAVIOR_NUM, CONTENTS, DIARY_NUM
+		FROM BEHAVIOR
+		WHERE
+		DIARY_NUM = #{diaryNum}
+	</select>
+
+
+</mapper>
